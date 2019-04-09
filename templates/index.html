@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bitácora</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/cbe.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">Inicio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/allentries.html">Entries</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+        </form>
+    </div>
+</nav>
+
+<main role="main">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h3>Bitácora</h3>
+
+            <form method="post" id="addentry">
+                    <div class="form-group">
+                        <label for="persons">Quién</label>
+                        <select class="form-control" id="persons" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Fecha</label>
+                        <input type="text" class="form-control" id="date" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                      </div>
+
+                    <div class="form-group">
+                        <label for="interactiontext">Descripción</label>
+                        <textarea class="form-control" id="interactiontext" required></textarea>
+                    </div>
+
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alert_error">
+                            <strong>Error agregando interacción</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+                            Interacción Agregada correctamente
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+                <h2>Team</h2>
+                <ul class="list-group list-group-flush" id="team">
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+    </div> <!-- /container -->
+
+</main>
+
+<footer class="container">
+    <p>&copy; Bitácora 2019</p>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/bootstrap-datepicker.min.js"></script>
+    <script src="/static/js/cbe.js"></script>
+</body>
+</html>

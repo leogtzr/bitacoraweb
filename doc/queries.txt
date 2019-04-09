@@ -1,0 +1,53 @@
+SELECT p.name, pt.type
+FROM person p
+INNER JOIN person_type pt ON p.type = pt.id;
+
+insert into interaction (comment, date, person_id) values('Hello', date(now()), 1);
+
+select p.name, pt.type, inter.date, inter.comment
+FROM interaction inter
+inner join person p on p.id = inter.person_id
+inner join person_type pt on pt.id = inter.person_id;
+
+insert into person_type (type) values('Familia');
+insert into person_type (type) values('Amigo');
+insert into person_type (type) values('Trabajo');
+
+insert into person (name, type) values('Mamá', 1);
+
+insert into interaction (comment, date, person_id) values('Hello', date(now()), 1);
+
+select p.name, pt.type,inter.date, inter.comment
+FROM interaction inter
+inner join person p on p.id = inter.person_id
+inner join person_type pt on pt.id = p.type;
+
+select concat(p.name, ' (', pt.type, ')') person,inter.date, inter.comment
+FROM interaction inter
+inner join person p on p.id = inter.person_id
+inner join person_type pt on pt.id = p.type;
+
+select concat(p.name, ' (', pt.type, ')') person,inter.date, inter.comment
+FROM interaction inter
+inner join person p on p.id = inter.person_id
+inner join person_type pt on pt.id = p.type
+where p.type = 1;
+
+
+select distinct(p.name)
+FROM person p
+inner join person_type pt on pt.id = p.type
+where p.type = 1;
+
+
+select * from person p
+inner join person_type pt on pt.id = p.type
+where p.id = 5;
+
+SELECT count(*) c FROM interaction inter
+inner join person p on p.id = inter.person_id
+WHERE date >= NOW() - INTERVAL 10 DAY;
+
+SELECT count(*) c FROM interaction inter
+inner join person p on p.id = inter.person_id
+WHERE date >= NOW() - INTERVAL 10 DAY and p.id = 1;
