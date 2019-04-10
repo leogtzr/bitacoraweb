@@ -1,4 +1,5 @@
 #!/bin/bash
+#: author: Leo Gtz <leogutierrezramirez@gmail.com>
 
 set -x
 readonly work_dir=$(dirname "$(readlink --canonicalize-existing "${0}")")
