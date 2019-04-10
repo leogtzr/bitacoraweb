@@ -20,10 +20,6 @@ fi
 export CBE_USER=leo
 export CBE_PASSWORD=lein23
 
-export DB_USER="root"
-export DB_PASSWORD="lein23"
-export DB_NAME="cbe"
-
 "${bin_program}"
 
 exit
