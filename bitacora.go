@@ -4,22 +4,13 @@ leogtzr | leogutierrezramirez@gmail.com
 package main
 
 import (
-	//"crypto/subtle"
-	//"database/sql"
-	//"encoding/json"
-	//"fmt"
-
 	"crypto/subtle"
 	"log"
 	"net/http"
 	"os"
 
-	//"os"
-	//"strconv"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	//"github.com/gorilla/schema"
 )
 
 func addRoutes(router *mux.Router) *mux.Router {
