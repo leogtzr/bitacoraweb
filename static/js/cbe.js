@@ -105,9 +105,6 @@ $(document).ready(function () {
             data: {id: empId, when: date, description: text, notes: []},
             success: function(data) {
                 $('#interactiontext').val('');
-                $("#alert").fadeTo(2000, 500).slideUp(500, function() {
-                    $("#alert").slideUp(500);
-                });
             },
             error: function(data) {
                 console.log(data);
