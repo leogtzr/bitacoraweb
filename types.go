@@ -34,6 +34,17 @@ var (
 	routes = Routes{}
 )
 
+// BitacoraEntries ...
+type BitacoraEntries struct {
+	// Entries ...
+	Entries []struct {
+		Date        string `json:"date"`
+		Description string `json:"description"`
+	} `json:"entries"`
+	Name     string `json:"name"`
+	Nickname string `json:"nickname"`
+}
+
 const (
 	// APIPort ...
 	APIPort = "8083"

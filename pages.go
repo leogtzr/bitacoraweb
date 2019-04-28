@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"encoding/csv"
+	"encoding/json"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +21,28 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// exportEntriesByEmployee
+func writeJSONToCSV(data []byte, w http.ResponseWriter) {
+
+	var entries BitacoraEntries
+	err := json.Unmarshal(data, &entries)
+	if err != nil {
+		fmt.Println(err)
+	}
+	csvWriter := csv.NewWriter(w)
+
+	w.Header().Set("Content-Disposition", "attachment; filename="+entries.Name+".csv")
+
+	csvWriter.Write([]string{"name", "description", "date"})
+	for _, entry := range entries.Entries {
+		var record []string
+		record = append(record, entries.Name)
+		record = append(record, strings.Replace(entry.Description, ",", ".", -1))
+		record = append(record, entry.Date)
+		csvWriter.Write(record)
+	}
+	csvWriter.Flush()
+}
+
 func exportEntriesByEmployee(w http.ResponseWriter, r *http.Request) {
 
 	id := r.URL.Query().Get("id")
@@ -34,10 +58,8 @@ func exportEntriesByEmployee(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 
-	w.Header().Set("Content-Disposition", "attachment; filename=export.csv")
 	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
-
-	io.Copy(w, strings.NewReader(string(body)))
+	writeJSONToCSV(body, w)
 }
 
 func entriesByEmployeePage(w http.ResponseWriter, r *http.Request) {
