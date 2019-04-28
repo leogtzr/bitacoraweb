@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
@@ -28,8 +27,8 @@ func auth(handler http.HandlerFunc, realm string) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		user, pass, ok := r.BasicAuth()
-		if !ok || subtle.ConstantTimeCompare([]byte(user), []byte(cbeUser)) != 1 ||
-			subtle.ConstantTimeCompare([]byte(pass), []byte(cbePassword)) != 1 {
+		if !ok || subtle.ConstantTimeCompare([]byte(user), []byte(bitacoraUser)) != 1 ||
+			subtle.ConstantTimeCompare([]byte(pass), []byte(bitacoraPassword)) != 1 {
 			w.Header().Set("WWW-Authenticate", `Basic realm="`+realm+`"`)
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("You are Unauthorized to access the application.\n"))
@@ -43,12 +42,12 @@ func auth(handler http.HandlerFunc, realm string) http.HandlerFunc {
 func init() {
 	// check if the necessary env variables are set:
 	if user, isSet := os.LookupEnv(userEnvVar); isSet {
-		cbeUser = user
+		bitacoraUser = user
 	} else {
 		log.Fatalf("%s env variable not set.", userEnvVar)
 	}
 	if password, isSet := os.LookupEnv(passwordEnvVar); isSet {
-		cbePassword = password
+		bitacoraPassword = password
 	} else {
 		log.Fatalf("%s env variable not set.", passwordEnvVar)
 	}
