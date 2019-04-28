@@ -17,8 +17,8 @@ if [[ ! -f "${bin_program}" ]]; then
     exit ${error_program_not_found}
 fi
 
-export CBE_USER=leo
-export CBE_PASSWORD=lein23
+export BITACORA_USER=leo
+export BITACORA_PASSWORD=lein23
 
 "${bin_program}"
 
