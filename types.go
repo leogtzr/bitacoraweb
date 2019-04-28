@@ -33,3 +33,8 @@ var (
 
 	routes = Routes{}
 )
+
+const (
+	// APIPort ...
+	APIPort = "8083"
+)

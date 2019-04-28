@@ -60,6 +60,7 @@ func main() {
 
 	router.HandleFunc("/", auth(homePage, enterYourUserNamePassword))
 	router.HandleFunc("/entries.html", auth(entriesByEmployeePage, enterYourUserNamePassword))
+	router.HandleFunc("/export", auth(exportEntriesByEmployee, enterYourUserNamePassword))
 	router.HandleFunc("/allentries.html", auth(allEntriesPage, enterYourUserNamePassword))
 
 	router.PathPrefix("/").Handler(http.StripPrefix("/static", http.FileServer(http.Dir("static/"))))

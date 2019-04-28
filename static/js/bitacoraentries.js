@@ -31,18 +31,18 @@ function populateEntriesTable(url, single) {
             }
         },
         error: function(data) {
-            console.log('woops! :( alrpvw' + data);
+            console.log('woops! :(');
+            console.log(data);
         }
     });
 }
 
 function showInfoInTable(entriesTable, entries, data) {
-
     for (var i = 0; i < entries.length; i++) {
         var entry = entries[i];
-        var whoRow = '<tr><td><b>' + data.name + '</b></td>';
+        var whoRow = '<tr><td><b><a href="/export?id=' + data._id + '">' + data.name + '</a></b></td>';
         whoRow += '<td>' + entry.description + '</td>';
-        whoRow += '<td>' + entry.date + '</td></tr>';                                                                         
+        whoRow += '<td>' + entry.date + '</td></tr>';
         entriesTable.append(whoRow);
     }
 }
