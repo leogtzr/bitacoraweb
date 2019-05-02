@@ -37,20 +37,6 @@ func authorize(handler http.Handler, realm string) http.HandlerFunc {
 	}
 }
 
-func checkAccess(handler http.HandlerFunc, realm string) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		user, pass, ok := r.BasicAuth()
-		if !ok || subtle.ConstantTimeCompare([]byte(user), []byte(bitacoraUser)) != 1 ||
-			subtle.ConstantTimeCompare([]byte(pass), []byte(bitacoraPassword)) != 1 {
-			w.Header().Set("WWW-Authenticate", `Basic realm="`+realm+`"`)
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("You are Unauthorized to access the application.\n"))
-			return
-		}
-		handler(w, r)
-	}
-}
-
 func init() {
 	// check if the necessary env variables are set:
 	if user, isSet := os.LookupEnv(userEnvVar); isSet {
