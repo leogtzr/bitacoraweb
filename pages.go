@@ -6,19 +6,27 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strings"
+	"sync"
 
 	"encoding/csv"
 	"encoding/json"
 )
 
-func homePage(w http.ResponseWriter, r *http.Request) {
-	parsedTemplates, _ := template.ParseFiles("templates/index.html")
-	err := parsedTemplates.Execute(w, nil)
-	if err != nil {
-		log.Print("Error occurred while executing the template or writing its output: ", err)
-		return
-	}
+// templateHandler represents a single template
+type templateHandler struct {
+	once     sync.Once
+	filename string
+	templ    *template.Template
+}
+
+// ServeHTTP handles the HTTP request.
+func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	t.once.Do(func() {
+		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
+	})
+	t.templ.Execute(w, nil)
 }
 
 func writeJSONToCSV(data []byte, w http.ResponseWriter) {
@@ -60,22 +68,4 @@ func exportEntriesByEmployee(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
 	writeJSONToCSV(body, w)
-}
-
-func entriesByEmployeePage(w http.ResponseWriter, r *http.Request) {
-	parsedTemplates, _ := template.ParseFiles("templates/entries.html")
-	err := parsedTemplates.Execute(w, nil)
-	if err != nil {
-		log.Print("Error occurred while executing the template or writing its output: ", err)
-		return
-	}
-}
-
-func allEntriesPage(w http.ResponseWriter, r *http.Request) {
-	parsedTemplates, _ := template.ParseFiles("templates/allentries.html")
-	err := parsedTemplates.Execute(w, nil)
-	if err != nil {
-		log.Print("Error occurred while executing the template or writing its output: ", err)
-		return
-	}
 }
